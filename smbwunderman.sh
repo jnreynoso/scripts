@@ -32,9 +32,15 @@ then
     reset_console
     if [ -z $2 ]
     then
+        smbclient "//10.12.10.110/publico/" -U $auth -c "cd Jean-Reynoso;ls"
+    elif [ $2 == '-r']
+    then
         smbclient "//10.12.10.110/publico/" -U $auth -c "cd Jean-Reynoso;recurse;ls"
+    elif [ $2 == '-f']
+    then
+        smbclient "//10.12.10.110/publico/" -U $auth -c "cd Jean-Reynoso;recurse;ls" |grep -i $3
     else
-        smbclient "//10.12.10.110/publico/" -U $auth -c "cd Jean-Reynoso;recurse;ls" |grep -i $2
+        smbclient "//10.12.10.110/publico/" -U $auth -c "cd Jean-Reynoso;cd $2;ls"
     fi
 elif [[ $1 == "-g" ]]
 then
